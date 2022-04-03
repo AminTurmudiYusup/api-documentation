@@ -45,6 +45,13 @@ public class VideoController {
         return videoRepository.findAll();
     }
 
+    @Operation(summary = "Get List video by name")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the list videos",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Video.class)) }),
+            @ApiResponse(responseCode = "204", description = "No Content found with spesific namae",
+                    content = @Content) })
     @GetMapping("/videos/search")
     List<Video> getVideoByKeyword(@RequestParam("keyword")String keyword){
         return videoService.searchByName(keyword);
